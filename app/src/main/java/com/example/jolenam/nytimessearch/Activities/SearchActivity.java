@@ -30,7 +30,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -47,7 +49,9 @@ public class SearchActivity extends AppCompatActivity implements FilterDialogFra
 
     String savedQuery;
 
-    String sortType;
+    String sortType, day, month, year;
+
+    Boolean artsChkd, fashionChkd, sportsChkd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,10 +100,6 @@ public class SearchActivity extends AppCompatActivity implements FilterDialogFra
 
         if (filters != null ) {
 
-            /*String month = searchFilter.getMonth();
-            String day = searchFilter.getDay();
-            String year = searchFilter.getYear();
-
             final Calendar cal = Calendar.getInstance();
             cal.set(Calendar.YEAR, Integer.parseInt(year));
             cal.set(Calendar.MONTH, Integer.parseInt(month));
@@ -107,10 +107,8 @@ public class SearchActivity extends AppCompatActivity implements FilterDialogFra
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
             String urlDate = format.format(cal.getTime());
 
-            params.put("begin_date", urlDate);*/
+            params.put("begin_date", urlDate);
 
-            //done below now! in onUpdateFilter
-            //String sortType = filters.getSortType();
 
             if (sortType.toLowerCase().equals("newest")) {
                 params.put("sort", "newest");
@@ -119,7 +117,27 @@ public class SearchActivity extends AppCompatActivity implements FilterDialogFra
                 params.put("sort", "oldest");
             }
 
-            // figure out newsdesk
+            //newsdesk
+            ArrayList<String> newsDeskItems = new ArrayList<>();
+
+            if (artsChkd) {
+                newsDeskItems.add("\"Arts\"");
+            }
+            if (fashionChkd) {
+                newsDeskItems.add("\"Fashion\"");
+            }
+            if (sportsChkd) {
+                newsDeskItems.add("\"Sports\"");
+            }
+
+            if (newsDeskItems.size() != 0) {
+                String newsDeskItemsStr =
+                        android.text.TextUtils.join(" ", newsDeskItems);
+                String newsDeskParamValue =
+                        String.format("news_desk:(%s)", newsDeskItemsStr);
+
+                params.put("fq", newsDeskParamValue);
+            }
 
         }
 
@@ -281,6 +299,14 @@ public class SearchActivity extends AppCompatActivity implements FilterDialogFra
     public void onUpdateFilters(SearchFilters filters) {
         // 1. Access the updated filters here and store them in member variable
        sortType =  filters.getSortType();
+       day = filters.getDay();
+       month = filters.getMonth();
+       year = filters.getYear();
+
+       artsChkd = filters.isCheckedArts();
+       fashionChkd = filters.isCheckedFashion();
+       sportsChkd = filters.isCheckedSports();
+
         // 2. Initiate a fresh search with these filters updated and same query value
         customLoadMoreDataFromApi(0, filters);
 

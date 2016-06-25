@@ -22,6 +22,8 @@ public class FilterDialogFragment extends DialogFragment implements View.OnClick
     CheckBox cbArts, cbFashionandStyle, cbSports;
     Button btnFilter;
 
+    Spinner spMonth, spDay, spYear;
+
     private SearchFilters mFilters;
 
     public FilterDialogFragment() {
@@ -51,16 +53,22 @@ public class FilterDialogFragment extends DialogFragment implements View.OnClick
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        getDialog().setTitle("Filter Search:");
+
         // Store the filters to a member variable
         mFilters = (SearchFilters) getArguments().getSerializable("filters");
         // ... any other view lookups here...
         // Get access to the button
-        //btnDatePicker = (Button) view.findViewById(R.id.btnDatePicker);
         spSort = (Spinner) view.findViewById(R.id.spSort);
         cbArts = (CheckBox) view.findViewById(R.id.cbArts);
         cbFashionandStyle = (CheckBox) view.findViewById(R.id.cbFashionAndStyle);
         cbSports = (CheckBox) view.findViewById(R.id.cbSports);
         btnFilter = (Button) view.findViewById(R.id.btnFilter);
+
+        spMonth = (Spinner) view.findViewById(R.id.spinMonth);
+        spDay = (Spinner) view.findViewById(R.id.spinDay);
+        spYear = (Spinner) view.findViewById(R.id.spinYear);
 
         // 2. Attach a callback when the button is pressed
         btnFilter.setOnClickListener(this);
@@ -72,11 +80,24 @@ public class FilterDialogFragment extends DialogFragment implements View.OnClick
     public void onClick(View v) {
         // Update the mFilters attribute values based on the input views
         if (mFilters != null) {
+            mFilters.setDay(spDay.getSelectedItem().toString());
+            mFilters.setMonth(spMonth.getSelectedItem().toString());
+            mFilters.setYear(spYear.getSelectedItem().toString());
+
             mFilters.setSortType(spSort.getSelectedItem().toString());
         }
 
+        if (cbArts.isChecked()) {
+            mFilters.setCheckedArts(true);
+        }
+        if (cbFashionandStyle.isChecked()) {
+            mFilters.setCheckedFashion(true);
+        }
+        if (cbSports.isChecked()) {
+            mFilters.setCheckedSports(true);
+        }
 
-        Toast.makeText(v.getContext(), mFilters.getSortType(), Toast.LENGTH_LONG).show();
+        Toast.makeText(v.getContext(), mFilters.getSortType(), Toast.LENGTH_SHORT).show();
 
         // Return filters back to activity through the implemented listener
         OnFilterSearchListener listener = (OnFilterSearchListener) getActivity();

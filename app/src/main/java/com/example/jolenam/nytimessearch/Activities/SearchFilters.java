@@ -15,6 +15,30 @@ public class SearchFilters implements Serializable {
     boolean checkedFashion;
     boolean checkedSports;
 
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public void setCheckedArts(boolean checkedArts) {
+        this.checkedArts = checkedArts;
+    }
+
+    public void setCheckedFashion(boolean checkedFashion) {
+        this.checkedFashion = checkedFashion;
+    }
+
+    public void setCheckedSports(boolean checkedSports) {
+        this.checkedSports = checkedSports;
+    }
+
 
     public void setSortType(String sortType) {
         this.sortType = sortType;
