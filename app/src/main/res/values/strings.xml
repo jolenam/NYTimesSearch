@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">NYTimesSearch</string>
+    <string name="action_settings">Settings</string>
+    <string name="hint">Enter search query</string>
+    <string name="search">Search</string>
+    <string name="title_activity_article">ArticleActivity</string>
+    <string name="beginDate">Begin Date</string>
+    <string name="sortOrder">Sort Order</string>
+    <string name="newsDesk">News Desk Values</string>
+    <string name="arts">Arts</string>
+    <string name="fashionstyle"><![CDATA[Fashion & Style]]></string>
+    <string name="sports">Sports</string>
+    <string name="hintBeginDate">6/23/2016</string>
+    <string name="filter">Filter!</string>
+    <string name="label_begin_date">Begin Date:</string>
+    <string name="button_pick_date">Choose Date</string>
+    <string name="label_sort_order">Sort Order:</string>
+    <string name="label_news_desk_value">News Desk Values:</string>
+    <string name="news_desk_value_arts">Arts</string>
+    <string name="news_desk_fashion"><![CDATA[Fashion & Style]]></string>
+    <string name="news_desk_value_sports">Sports</string>
+    <string name="button_filter">Filter!</string>
+</resources>
